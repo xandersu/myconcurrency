@@ -11,7 +11,7 @@ package com.xandersu.myconcurrency.threadsafety04;
  * 原子性：提供了互斥访问，同一个时刻只能有一个线程来对他操作
  * 可见性：一个线程对主内存的修改可以及时的被其他线程观察到
  * 有序性：一个线程观察其他线程中的指令执行顺序，由于指令重排序的存在，该观察结果一般杂乱无序
- * ·
+ * · C4-P1-2
  * 原子性-Atomic包
  * AtomicXXX:CAS / Unsafe.compareAndSwapInt
  * AtomicLong / LongAdder
@@ -29,6 +29,22 @@ package com.xandersu.myconcurrency.threadsafety04;
  * 解决思路：每次变量更新将版本号加一
  * ·
  * AtomicLongArray:维护的是一个数组，可以选择性的更新某一个索引对应的值，原子性
+ * `
+ * 原子性-锁
+ * synchronized:依赖JVM，在这个关键字作用对象的作用范围内，都是同一时刻只有一个线程可以操作的。
+ * Lock：依赖特殊的CPU指令，代码实现，ReentrantLock
+ * `
+ * synchronized
+ * 关键字，同步锁，修饰的对象主要有四种：
+ * 1、修饰代码块：大括号括起来的代码，作用于调用的对象。被修饰的代码叫同步语句块，作用范围大括号括起来的代码，作用的对象是调用这个代码块的对象
+ * 2、修饰方法：整个方法，作用于调用的对象。被修饰的方法成为同步方法，作用范围是整个方法，作用的对象是调用这个方法的对象
+ * 3、修饰一个静态方法：整个静态方法，作用于所有对象。
+ * 4、修饰类：括号括起来的部分，作用于所有对象。范围是synchronized括号括起来的，作用对象这个类的所有对象
+ * ·
+ * 原子性-对比
+ * synchronized：不可中断锁，适合竞争不激烈，可读性好
+ * Lock：可中断锁，多样化同步，竞争激烈时能保证常态
+ * AtomicL：竞争激烈时能维持常态，比lock性能好；只能同步一个值
  */
 public interface ThreadSafety {
 }

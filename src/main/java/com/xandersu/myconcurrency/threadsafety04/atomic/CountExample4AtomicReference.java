@@ -1,4 +1,4 @@
-package com.xandersu.myconcurrency.threadsafety04;
+package com.xandersu.myconcurrency.threadsafety04.atomic;
 
 import com.xandersu.myconcurrency.annotation.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;

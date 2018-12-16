@@ -1,6 +1,5 @@
-package com.xandersu.myconcurrency.threadsafety04;
+package com.xandersu.myconcurrency.threadsafety04.atomic;
 
-import com.xandersu.myconcurrency.annotation.NotThreadSafe;
 import com.xandersu.myconcurrency.annotation.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,13 +16,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Slf4j
 @ThreadSafe
-public class CountExample1AtomicInteger {
+public class CountExample7Synchronized {
     //请求总数
     private static int clientTotal = 5000;
     //同时并发执行的线程数
     private static int threadTotal = 200;
 
-    private static AtomicInteger count = new AtomicInteger(0);
+    private static int count = 0;
 
     public static void main(String[] args) throws Exception{
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -44,11 +43,10 @@ public class CountExample1AtomicInteger {
         }
         countDownLatch.await();
         executorService.shutdown();
-       log.info("count:{}",count.get());
+       log.info("count:{}",count);
     }
 
-    private static void add() {
-        count.incrementAndGet();
-        //count.getAndIncrement();
+    private synchronized static void add() {
+        count++;
     }
 }
