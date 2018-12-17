@@ -1,7 +1,13 @@
 package com.xandersu.myconcurrency;
 
+import com.xandersu.myconcurrency.immutable_object06.HttpInterceptor;
+import com.xandersu.myconcurrency.immutable_object06.MyHttpFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * Java并发编程入门与高并发面试
@@ -14,9 +20,25 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 高并发：服务能够同时处理很多请求没提高程序性能
  */
 @SpringBootApplication
-public class MyConcurrencyApplication {
+public class MyConcurrencyApplication extends WebMvcConfigurerAdapter {
 
     public static void main(String[] args) {
         SpringApplication.run(MyConcurrencyApplication.class, args);
+    }
+
+    /**
+     * 配置Filter
+     */
+    @Bean
+    public FilterRegistrationBean httpFilter() {
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+        filterRegistrationBean.setFilter(new MyHttpFilter());
+        filterRegistrationBean.addUrlPatterns("/threadLocal/*");
+        return filterRegistrationBean;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new HttpInterceptor()).addPathPatterns("/**");
     }
 }
