@@ -33,7 +33,20 @@ package com.xandersu.myconcurrency.immutable_object06;
  * `
  * 并发容器J.U.C
  * ArrayList -> CopyOnWriteArrayList
- *
+ * -线程安全，写操作时复制；先拷贝一份，写完后指向新数组；add操作有锁；拷贝引发GC，速度慢；不能用于实时读；
+ * -读写分离；最终一致性；使用时另外开辟空间；读在原数组读，不加锁，写操作加锁；
+ * HashSet\TreeSet -> CopyOnWriteArraySet\ConcurrentSkipListSet
+ * CopyOnWriteArraySet 复制整个数组，add，set开销大；迭代器不支持可见的remove操作；迭代器遍历很快，不会与其他线程冲突
+ * ConcurrentSkipListSet jdk6+  支持自然排序，构造时只定义比较器；xxxAll不能保证以原子方式执行；不允许null；
+ * HashMap/TreeMap -> ConcurrentHashMap/ConcurrentSkipListMap
+ * ConcurrentHashMap 不允许null
+ * ConcurrentSkipListMap  key有序、支持更高的并发，存取时间跟线程数无关
+ * ==================================================================================================
+ * 安全共享对象策略-总结
+ * 线程限制：一个被线程限制的对象，由线程独占，并且只能被占有它的线程修改
+ * 共享只读：一个共享只读的对象，在没有额外同步的情况下，可以被多个线程并发访问，但是任何线程都不能修改他
+ * 线程安全对象：一个线程安全的对象或者容器，在内部通过同步机制来保证线程安全，所以其他线程无需额外的同步就可以通过公共接口随意访问
+ * 被守护的对象：被守护的对象只能通过获取特定的锁来访问
  *
  */
 public interface ImmutableObject {
