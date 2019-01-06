@@ -30,7 +30,17 @@ package com.xandersu.myconcurrency.threadpool09;
  * getCompletedTaskCount():已完成的任务数量
  * getPoolSize():线程池当前的线程数量
  * getActiveCount():当前线程池中正在执行任务的线程数量
- * Exe
+ * ·
+ * Executor框架接口
+ * Executor.newCachedThreadPool 可缓存线程池
+ * Executor.newFixedThreadPool 定长的线程池
+ * Executor.newScheduledThreadPool 定长的定期的
+ * Executor.newSingleThreadExecutor 单线程线程池，按顺序执行
+ * 合理配置
+ * CPU密集任务，压榨CPU，nCPU+1
+ * IO密集，2*nCPU
+ *
+ *
  */
 public interface MyThreadPool {
 }
